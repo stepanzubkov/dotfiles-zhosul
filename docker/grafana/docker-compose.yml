@@ -1,0 +1,17 @@
+version: "3"
+
+# TODO: Optional prometheus setup (for now it is just not relates to the grafana).
+# TODO: TBD.
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./datasource.yml:/etc/grafana/provisioning/datasource.yml
+    env_file:
+      - ./grafana.env
+    links:
+      - prometheus
