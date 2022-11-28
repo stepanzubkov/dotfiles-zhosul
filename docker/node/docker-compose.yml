@@ -1,0 +1,23 @@
+version: "3.7"
+
+volumes:
+  db:
+    driver: local
+
+services:
+  database:
+    hostname: app
+    profiles: ["with-mongo"]
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: app
+      MONGO_INITDB_ROOT_PASSWORD: app
+    ports:
+      - 27017:27017
+    volumes:
+      - db:/data/db
+  server:
+    hostname: app
+    build: .
+    ports:
+      - "8000:8000"
